@@ -2,12 +2,11 @@
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int startingHealth = 100;
+    [SerializeField] EnemyStats stats;
+    public int startingHealth;
     public int currentHealth;
-    public float sinkSpeed = 2.5f;
-    public int scoreValue = 10;
+    public int scoreValue;
     public AudioClip deathClip;
-
 
     Animator anim;
     AudioSource enemyAudio;
@@ -51,7 +50,7 @@ public class EnemyHealth : MonoBehaviour
         {
             timeToDespawn -= Time.deltaTime;
 
-            transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
+            transform.Translate (-Vector3.up * stats.sinkSpeed * Time.deltaTime);
 
             if (timeToDespawn <= 0)
             {
