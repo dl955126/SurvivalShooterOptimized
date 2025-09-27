@@ -16,6 +16,9 @@ public class EnemyHealth : MonoBehaviour
     bool isDead;
     bool isSinking;
 
+    float timeToDespawn = 2;
+    EnemyPool pool;
+
 
     void Awake ()
     {
@@ -27,12 +30,33 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = startingHealth;
     }
 
+    private void OnDisable()
+    {
+        if (pool != null) 
+        { 
+            pool.AddToQueue(this);
+        
+        }
+
+    }
+
+    public void SetPool(EnemyPool enemyPool)
+    {
+        pool = enemyPool;
+    }
 
     void Update ()
     {
         if(isSinking)
         {
+            timeToDespawn -= Time.deltaTime;
+
             transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
+
+            if (timeToDespawn <= 0)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 
@@ -70,11 +94,13 @@ public class EnemyHealth : MonoBehaviour
 
 
     public void StartSinking ()
-    {
+    {   
         GetComponent <UnityEngine.AI.NavMeshAgent> ().enabled = false;
         GetComponent <Rigidbody> ().isKinematic = true;
         isSinking = true;
         ScoreManager.score += scoreValue;
-        Destroy (gameObject, 2f);
+
+        //Destroy (gameObject, 2f);
+
     }
 }
