@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Animations;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class EnemyHealth : MonoBehaviour
 
     float timeToDespawn = 2;
     EnemyPool pool;
+
+    int id_dead = Animator.StringToHash("Dead");
 
 
     void Awake ()
@@ -85,7 +88,7 @@ public class EnemyHealth : MonoBehaviour
 
         capsuleCollider.isTrigger = true;
 
-        anim.SetTrigger ("Dead");
+        anim.SetTrigger (id_dead);
 
         enemyAudio.clip = deathClip;
         enemyAudio.Play ();

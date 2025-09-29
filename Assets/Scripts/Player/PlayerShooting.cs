@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -31,11 +32,6 @@ public class PlayerShooting : MonoBehaviour
     void Update ()
     {
         timer += Time.deltaTime;
-
-		if(Input.GetButton ("Fire1") && timer >= timeBetweenBullets && Time.timeScale != 0)
-        {
-            Shoot ();
-        }
 
         if(timer >= timeBetweenBullets * effectsDisplayTime)
         {
@@ -81,5 +77,14 @@ public class PlayerShooting : MonoBehaviour
         {
             gunLine.SetPosition (1, shootRay.origin + shootRay.direction * range);
         }
+    }
+
+    public void OnShoot(InputAction.CallbackContext ctx)
+    {
+        if(ctx.performed && timer >= timeBetweenBullets && Time.timeScale != 0)
+        {
+            Shoot();
+        }
+
     }
 }
