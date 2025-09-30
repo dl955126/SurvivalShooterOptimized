@@ -2,17 +2,18 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 
 public class PlayerHealth : MonoBehaviour
 {
     public int startingHealth = 100;
     public int currentHealth;
-    public Slider healthSlider;
-    public Image damageImage;
     public AudioClip deathClip;
-    public float flashSpeed = 5f;
-    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
+
+    [SerializeField] UnityEvent<int> UpdateHealth;
+    [SerializeField] UnityEvent OnDamaged;
+    [SerializeField] UnityEvent NotDamaged;
 
 
     Animator anim;
@@ -39,11 +40,12 @@ public class PlayerHealth : MonoBehaviour
     {
         if(damaged)
         {
-            damageImage.color = flashColour;
+            OnDamaged?.Invoke();
+            
         }
         else
         {
-            damageImage.color = Color.Lerp (damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+            NotDamaged?.Invoke();
         }
         damaged = false;
     }
@@ -55,7 +57,7 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth -= amount;
 
-        healthSlider.value = currentHealth;
+        UpdateHealth?.Invoke(currentHealth);
 
         playerAudio.Play ();
 

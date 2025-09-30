@@ -5286,6 +5286,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: e72d3e66dc4ff554b8f46027bf72c222, type: 2}
+  UpdateScore:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2181876734523842277, guid: 9e3e72cd89ef44f97afe08f9baaabc18,
+          type: 3}
+        m_TargetAssemblyTypeName: PlayerUI, Assembly-CSharp
+        m_MethodName: UpdateScore
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   startingHealth: 100
   currentHealth: 0
   scoreValue: 10
